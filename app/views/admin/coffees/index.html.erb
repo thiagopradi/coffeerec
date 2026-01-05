@@ -8,33 +8,42 @@
     <table class="w-full">
       <thead class="bg-slate-700/50">
         <tr>
-          <th class="px-6 py-4 text-left text-sm font-semibold text-slate-300">Name</th>
-          <th class="px-6 py-4 text-left text-sm font-semibold text-slate-300">Roast</th>
-          <th class="px-6 py-4 text-center text-sm font-semibold text-slate-300">Acidity</th>
-          <th class="px-6 py-4 text-center text-sm font-semibold text-slate-300">Body</th>
-          <th class="px-6 py-4 text-center text-sm font-semibold text-slate-300">Sweetness</th>
-          <th class="px-6 py-4 text-center text-sm font-semibold text-slate-300">Bitterness</th>
-          <th class="px-6 py-4 text-right text-sm font-semibold text-slate-300">Actions</th>
+          <th class="px-4 py-4 text-left text-sm font-semibold text-slate-300">SKU</th>
+          <th class="px-4 py-4 text-left text-sm font-semibold text-slate-300">Name</th>
+          <th class="px-4 py-4 text-left text-sm font-semibold text-slate-300">Roast</th>
+          <th class="px-4 py-4 text-left text-sm font-semibold text-slate-300">Grind</th>
+          <th class="px-4 py-4 text-right text-sm font-semibold text-slate-300">Price</th>
+          <th class="px-4 py-4 text-center text-sm font-semibold text-slate-300">Acidity</th>
+          <th class="px-4 py-4 text-center text-sm font-semibold text-slate-300">Body</th>
+          <th class="px-4 py-4 text-right text-sm font-semibold text-slate-300">Actions</th>
         </tr>
       </thead>
       <tbody class="divide-y divide-slate-700">
         <% @coffees.each do |coffee| %>
           <tr class="hover:bg-slate-700/30 transition">
-            <td class="px-6 py-4">
-              <div class="text-white font-medium"><%= coffee.name %></div>
-              <div class="text-slate-400 text-sm truncate max-w-xs"><%= coffee.description&.truncate(50) %></div>
+            <td class="px-4 py-4">
+              <code class="text-xs text-amber-400 bg-slate-700/50 px-2 py-1 rounded"><%= coffee.sku || "—" %></code>
             </td>
-            <td class="px-6 py-4">
+            <td class="px-4 py-4">
+              <div class="text-white font-medium"><%= coffee.name %></div>
+              <div class="text-slate-400 text-sm truncate max-w-xs"><%= coffee.description&.truncate(40) %></div>
+            </td>
+            <td class="px-4 py-4">
               <% roast_colors = { "light" => "bg-amber-300 text-amber-900", "medium" => "bg-amber-500 text-white", "dark" => "bg-amber-800 text-amber-100" } %>
               <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <%= roast_colors[coffee.roast_level] || 'bg-slate-600 text-slate-300' %>">
                 <%= coffee.roast_level&.capitalize || "—" %>
               </span>
             </td>
-            <td class="px-6 py-4 text-center text-slate-300"><%= coffee.acidity || "—" %></td>
-            <td class="px-6 py-4 text-center text-slate-300"><%= coffee.body || "—" %></td>
-            <td class="px-6 py-4 text-center text-slate-300"><%= coffee.sweetness || "—" %></td>
-            <td class="px-6 py-4 text-center text-slate-300"><%= coffee.bitterness || "—" %></td>
-            <td class="px-6 py-4 text-right space-x-2">
+            <td class="px-4 py-4">
+              <% grind_colors = { "whole_bean" => "bg-emerald-600 text-emerald-100", "ground" => "bg-blue-600 text-blue-100" } %>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <%= grind_colors[coffee.grind_type] || 'bg-slate-600 text-slate-300' %>">
+                <%= coffee.grind_type&.humanize || "—" %>
+              </span>
+            </td>
+            <td class="px-4 py-4 text-right text-slate-300 font-medium"><%= coffee.formatted_price || "—" %></td>
+            <td class="px-4 py-4 text-center text-slate-300"><%= coffee.acidity || "—" %></td>
+            <td class="px-4 py-4 text-center text-slate-300"><%= coffee.body || "—" %></td>
+            <td class="px-4 py-4 text-right space-x-2">
               <%= link_to "View", admin_coffee_path(coffee), class: "text-blue-400 hover:text-blue-300" %>
               <%= link_to "Edit", edit_admin_coffee_path(coffee), class: "text-amber-400 hover:text-amber-300" %>
               <%= link_to "Delete", admin_coffee_path(coffee), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "text-red-400 hover:text-red-300" %>
@@ -51,3 +60,4 @@
     <% end %>
   </div>
 </div>
+

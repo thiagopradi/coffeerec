@@ -10,13 +10,46 @@
       <h2 class="text-xl font-semibold text-white mb-4">Coffee Details</h2>
       <dl class="space-y-4">
         <div>
+          <dt class="text-sm text-slate-400">SKU</dt>
+          <dd class="text-white font-mono"><%= @coffee.sku || "—" %></dd>
+        </div>
+        <div>
           <dt class="text-sm text-slate-400">Description</dt>
           <dd class="text-white mt-1"><%= @coffee.description || "No description" %></dd>
         </div>
-        <div>
-          <dt class="text-sm text-slate-400">Roast Level</dt>
-          <dd class="text-white font-medium"><%= @coffee.roast_level&.capitalize || "—" %></dd>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <dt class="text-sm text-slate-400">Roast Level</dt>
+            <dd class="text-white font-medium"><%= @coffee.roast_level&.capitalize || "—" %></dd>
+          </div>
+          <div>
+            <dt class="text-sm text-slate-400">Grind Type</dt>
+            <dd>
+              <% grind_colors = { "whole_bean" => "bg-emerald-600 text-emerald-100", "ground" => "bg-blue-600 text-blue-100" } %>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <%= grind_colors[@coffee.grind_type] || 'bg-slate-600 text-slate-300' %>">
+                <%= @coffee.grind_type&.humanize || "—" %>
+              </span>
+            </dd>
+          </div>
         </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <dt class="text-sm text-slate-400">Price</dt>
+            <dd class="text-white font-medium text-lg"><%= @coffee.formatted_price || "—" %></dd>
+          </div>
+          <div>
+            <dt class="text-sm text-slate-400">Currency</dt>
+            <dd class="text-white font-medium"><%= @coffee.currency || "—" %></dd>
+          </div>
+        </div>
+        <% if @coffee.url.present? %>
+          <div>
+            <dt class="text-sm text-slate-400">Product URL</dt>
+            <dd class="mt-1">
+              <%= link_to @coffee.url, @coffee.url, target: "_blank", rel: "noopener noreferrer", class: "text-amber-400 hover:text-amber-300 break-all" %>
+            </dd>
+          </div>
+        <% end %>
         <div>
           <dt class="text-sm text-slate-400">Created</dt>
           <dd class="text-white font-medium"><%= @coffee.created_at.strftime("%B %d, %Y") %></dd>
@@ -60,3 +93,4 @@
     </div>
   </div>
 </div>
+

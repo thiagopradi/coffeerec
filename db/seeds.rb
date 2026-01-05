@@ -12,7 +12,12 @@ coffees = [
     acidity: 3,
     body: 8,
     sweetness: 7,
-    bitterness: 4
+    bitterness: 4,
+    sku: "CERRADO-001",
+    price_cents: 3290,
+    currency: "BRL",
+    url: "https://example.com/coffees/cerrado-mineiro",
+    grind_type: "whole_bean"
   },
   {
     name: "Sul de Minas Balanced",
@@ -21,7 +26,12 @@ coffees = [
     acidity: 5,
     body: 6,
     sweetness: 6,
-    bitterness: 4
+    bitterness: 4,
+    sku: "SULMINAS-001",
+    price_cents: 2990,
+    currency: "BRL",
+    url: "https://example.com/coffees/sul-de-minas",
+    grind_type: "whole_bean"
   },
   {
     name: "Mantiqueira Fruity",
@@ -30,7 +40,12 @@ coffees = [
     acidity: 8,
     body: 5,
     sweetness: 6,
-    bitterness: 3
+    bitterness: 3,
+    sku: "MANTIQ-001",
+    price_cents: 4590,
+    currency: "BRL",
+    url: "https://example.com/coffees/mantiqueira-fruity",
+    grind_type: "whole_bean"
   },
   {
     name: "Caparaó Fermented",
@@ -39,7 +54,12 @@ coffees = [
     acidity: 7,
     body: 7,
     sweetness: 8,
-    bitterness: 2
+    bitterness: 2,
+    sku: "CAPARAO-001",
+    price_cents: 5990,
+    currency: "BRL",
+    url: "https://example.com/coffees/caparao-fermented",
+    grind_type: "whole_bean"
   },
   {
     name: "Ethiopian Yirgacheffe",
@@ -48,7 +68,12 @@ coffees = [
     acidity: 9,
     body: 4,
     sweetness: 7,
-    bitterness: 2
+    bitterness: 2,
+    sku: "ETHIOPIA-001",
+    price_cents: 6490,
+    currency: "BRL",
+    url: "https://example.com/coffees/ethiopian-yirgacheffe",
+    grind_type: "whole_bean"
   },
   {
     name: "Italian Espresso Blend",
@@ -57,7 +82,12 @@ coffees = [
     acidity: 2,
     body: 9,
     sweetness: 5,
-    bitterness: 7
+    bitterness: 7,
+    sku: "ITALIAN-001",
+    price_cents: 2490,
+    currency: "BRL",
+    url: "https://example.com/coffees/italian-espresso",
+    grind_type: "ground"
   },
   {
     name: "Colombian Supremo",
@@ -66,7 +96,12 @@ coffees = [
     acidity: 4,
     body: 6,
     sweetness: 7,
-    bitterness: 3
+    bitterness: 3,
+    sku: "COLOMBIA-001",
+    price_cents: 3490,
+    currency: "BRL",
+    url: "https://example.com/coffees/colombian-supremo",
+    grind_type: "whole_bean"
   },
   {
     name: "Guatemala Antigua",
@@ -75,7 +110,12 @@ coffees = [
     acidity: 4,
     body: 8,
     sweetness: 5,
-    bitterness: 5
+    bitterness: 5,
+    sku: "GUATEMALA-001",
+    price_cents: 3990,
+    currency: "BRL",
+    url: "https://example.com/coffees/guatemala-antigua",
+    grind_type: "ground"
   },
   {
     name: "Kenya AA",
@@ -84,7 +124,12 @@ coffees = [
     acidity: 9,
     body: 5,
     sweetness: 5,
-    bitterness: 4
+    bitterness: 4,
+    sku: "KENYA-001",
+    price_cents: 5490,
+    currency: "BRL",
+    url: "https://example.com/coffees/kenya-aa",
+    grind_type: "whole_bean"
   },
   {
     name: "Sumatra Mandheling",
@@ -93,19 +138,31 @@ coffees = [
     acidity: 2,
     body: 9,
     sweetness: 4,
-    bitterness: 6
+    bitterness: 6,
+    sku: "SUMATRA-001",
+    price_cents: 4290,
+    currency: "BRL",
+    url: "https://example.com/coffees/sumatra-mandheling",
+    grind_type: "ground"
   }
 ]
 
 coffees.each do |coffee_attrs|
-  coffee = Coffee.find_or_create_by!(name: coffee_attrs[:name]) do |c|
-    c.description = coffee_attrs[:description]
-    c.roast_level = coffee_attrs[:roast_level]
-    c.acidity = coffee_attrs[:acidity]
-    c.body = coffee_attrs[:body]
-    c.sweetness = coffee_attrs[:sweetness]
-    c.bitterness = coffee_attrs[:bitterness]
-  end
+  coffee = Coffee.find_or_initialize_by(name: coffee_attrs[:name])
+  coffee.assign_attributes(
+    description: coffee_attrs[:description],
+    roast_level: coffee_attrs[:roast_level],
+    acidity: coffee_attrs[:acidity],
+    body: coffee_attrs[:body],
+    sweetness: coffee_attrs[:sweetness],
+    bitterness: coffee_attrs[:bitterness],
+    sku: coffee_attrs[:sku],
+    price_cents: coffee_attrs[:price_cents],
+    currency: coffee_attrs[:currency],
+    url: coffee_attrs[:url],
+    grind_type: coffee_attrs[:grind_type]
+  )
+  coffee.save!
 
   # Generate embeddings for similarity search
   coffee.generate_embedding!

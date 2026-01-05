@@ -44,12 +44,41 @@
                                 end %>">
                   <%= coffee.roast_level&.titleize %> Roast
                 </span>
+                <% if coffee.grind_type.present? %>
+                  <span class="px-3 py-1 rounded-full text-sm font-medium
+                              <%= coffee.grind_type == 'whole_bean' ? 'bg-emerald-700 text-emerald-100' : 'bg-blue-700 text-blue-100' %>">
+                    <% if coffee.grind_type == 'whole_bean' %>
+                      ☕ Whole Bean
+                    <% else %>
+                      🫘 Ground
+                    <% end %>
+                  </span>
+                <% end %>
               </div>
 
               <p class="text-amber-200/80 mb-4"><%= coffee.description %></p>
 
+              <%# Price and Buy Button %>
+              <% if coffee.price_cents.present? || coffee.url.present? %>
+                <div class="flex flex-wrap items-center gap-4 mb-4 p-3 bg-stone-900/50 rounded-xl">
+                  <% if coffee.formatted_price %>
+                    <div class="text-2xl font-bold text-amber-400">
+                      <%= coffee.formatted_price %>
+                    </div>
+                  <% end %>
+                  <% if coffee.url.present? %>
+                    <%= link_to coffee.url, target: "_blank", rel: "noopener noreferrer", class: "inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white font-semibold rounded-xl shadow-lg shadow-amber-900/50 transition-all hover:scale-105" do %>
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                      </svg>
+                      Buy Now
+                    <% end %>
+                  <% end %>
+                </div>
+              <% end %>
+
               <%# Flavor Profile Bars %>
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div>
                   <div class="flex justify-between text-sm text-amber-400/60 mb-1">
                     <span>Acidity</span>

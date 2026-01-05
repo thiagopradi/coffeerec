@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_04_180004) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_05_021717) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "vector"
@@ -26,6 +26,12 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_04_180004) do
     t.vector "flavor_embedding", limit: 8
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "price_cents"
+    t.string "currency", default: "BRL"
+    t.string "url"
+    t.string "sku"
+    t.string "grind_type"
+    t.index ["sku"], name: "index_coffees_on_sku", unique: true
   end
 
   create_table "taste_profiles", force: :cascade do |t|

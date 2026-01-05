@@ -46,6 +46,6 @@ class Admin::CoffeesController < Admin::BaseController
   end
 
   def coffee_params
-    params.require(:coffee).permit(:name, :description, :roast_level, :acidity, :body, :sweetness, :bitterness)
+    params.require(:coffee).permit(:name, :description, :roast_level, :acidity, :body, :sweetness, :bitterness, :price_cents, :currency, :url, :sku, :grind_type)
   end
 end

@@ -6,9 +6,14 @@ class TasteProfilesController < ApplicationController
   end
 
   def create
+    # Destroy existing taste profile if user is retaking the quiz
+    current_user.taste_profile&.destroy
+
     @taste_profile = current_user.build_taste_profile(taste_profile_params)
 
     if @taste_profile.save
+      # Ensure user is authenticated in the session
+      session[:user_id] = current_user.id
       redirect_to recommendations_path
     else
       render :new, status: :unprocessable_entity
