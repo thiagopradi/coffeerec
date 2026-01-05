@@ -1,0 +1,76 @@
+<div class="space-y-6">
+  <div class="flex items-center gap-4">
+    <%= link_to "← Back", admin_users_path, class: "text-slate-400 hover:text-slate-300" %>
+    <h1 class="text-3xl font-bold text-white">User Details</h1>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- User Info -->
+    <div class="bg-slate-800 rounded-xl p-6 border border-slate-700">
+      <h2 class="text-xl font-semibold text-white mb-4">User Information</h2>
+      <dl class="space-y-4">
+        <div>
+          <dt class="text-sm text-slate-400">ID</dt>
+          <dd class="text-white font-medium"><%= @user.id %></dd>
+        </div>
+        <div>
+          <dt class="text-sm text-slate-400">Email</dt>
+          <dd class="text-white font-medium"><%= @user.email %></dd>
+        </div>
+        <div>
+          <dt class="text-sm text-slate-400">Name</dt>
+          <dd class="text-white font-medium"><%= @user.name || "—" %></dd>
+        </div>
+        <div>
+          <dt class="text-sm text-slate-400">Created</dt>
+          <dd class="text-white font-medium"><%= @user.created_at.strftime("%B %d, %Y at %I:%M %p") %></dd>
+        </div>
+      </dl>
+      <div class="mt-6 flex gap-3">
+        <%= link_to "Edit", edit_admin_user_path(@user), class: "px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition" %>
+        <% if @user.taste_profile %>
+          <%= link_to "View Matches", admin_match_path(@user), class: "px-4 py-2 bg-green-600 hover:bg-green-500 text-white rounded-lg transition" %>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Taste Profile -->
+    <div class="bg-slate-800 rounded-xl p-6 border border-slate-700">
+      <h2 class="text-xl font-semibold text-white mb-4">Taste Profile</h2>
+      <% if @user.taste_profile %>
+        <dl class="space-y-3">
+          <div class="flex justify-between">
+            <dt class="text-slate-400">Chocolate</dt>
+            <dd class="text-white font-medium"><%= @user.taste_profile.chocolate_preference&.humanize %></dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="text-slate-400">Fruit</dt>
+            <dd class="text-white font-medium"><%= @user.taste_profile.fruit_preference&.humanize %></dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="text-slate-400">Drink</dt>
+            <dd class="text-white font-medium"><%= @user.taste_profile.drink_preference&.humanize %></dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="text-slate-400">Texture</dt>
+            <dd class="text-white font-medium"><%= @user.taste_profile.texture_preference&.humanize %></dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="text-slate-400">Adventure</dt>
+            <dd class="text-white font-medium"><%= @user.taste_profile.adventure_level&.humanize %></dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="text-slate-400">Brewing</dt>
+            <dd class="text-white font-medium"><%= @user.taste_profile.brewing_method&.humanize %></dd>
+          </div>
+          <div class="flex justify-between">
+            <dt class="text-slate-400">Has Grinder</dt>
+            <dd class="text-white font-medium"><%= @user.taste_profile.has_grinder ? "Yes" : "No" %></dd>
+          </div>
+        </dl>
+      <% else %>
+        <p class="text-slate-400">No taste profile for this user.</p>
+      <% end %>
+    </div>
+  </div>
+</div>

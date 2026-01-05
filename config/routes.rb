@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  # Admin interface
+  namespace :admin do
+    root "dashboard#index"
+    resources :users
+    resources :coffees
+    resources :matches, only: [ :index, :show ]
+  end
+
   # Landing page with email capture
   root "welcome#index"
   post "start", to: "welcome#create", as: :start

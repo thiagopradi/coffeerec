@@ -1,0 +1,10 @@
+<div class="space-y-6">
+  <div class="flex items-center gap-4">
+    <%= link_to "← Back", admin_users_path, class: "text-slate-400 hover:text-slate-300" %>
+    <h1 class="text-3xl font-bold text-white">New User</h1>
+  </div>
+
+  <div class="bg-slate-800 rounded-xl p-6 border border-slate-700 max-w-xl">
+    <%= render "form", user: @user %>
+  </div>
+</div>

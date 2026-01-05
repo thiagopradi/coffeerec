@@ -1,0 +1,62 @@
+<div class="space-y-6">
+  <div class="flex items-center gap-4">
+    <%= link_to "← Back", admin_coffees_path, class: "text-slate-400 hover:text-slate-300" %>
+    <h1 class="text-3xl font-bold text-white"><%= @coffee.name %></h1>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Coffee Info -->
+    <div class="bg-slate-800 rounded-xl p-6 border border-slate-700">
+      <h2 class="text-xl font-semibold text-white mb-4">Coffee Details</h2>
+      <dl class="space-y-4">
+        <div>
+          <dt class="text-sm text-slate-400">Description</dt>
+          <dd class="text-white mt-1"><%= @coffee.description || "No description" %></dd>
+        </div>
+        <div>
+          <dt class="text-sm text-slate-400">Roast Level</dt>
+          <dd class="text-white font-medium"><%= @coffee.roast_level&.capitalize || "—" %></dd>
+        </div>
+        <div>
+          <dt class="text-sm text-slate-400">Created</dt>
+          <dd class="text-white font-medium"><%= @coffee.created_at.strftime("%B %d, %Y") %></dd>
+        </div>
+      </dl>
+      <div class="mt-6 flex gap-3">
+        <%= link_to "Edit", edit_admin_coffee_path(@coffee), class: "px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-lg transition" %>
+      </div>
+    </div>
+
+    <!-- Flavor Profile -->
+    <div class="bg-slate-800 rounded-xl p-6 border border-slate-700">
+      <h2 class="text-xl font-semibold text-white mb-4">Flavor Profile</h2>
+      <div class="space-y-4">
+        <% [
+          { label: "Acidity", value: @coffee.acidity, color: "bg-yellow-500" },
+          { label: "Body", value: @coffee.body, color: "bg-amber-600" },
+          { label: "Sweetness", value: @coffee.sweetness, color: "bg-pink-500" },
+          { label: "Bitterness", value: @coffee.bitterness, color: "bg-amber-800" }
+        ].each do |attr| %>
+          <div>
+            <div class="flex justify-between text-sm mb-1">
+              <span class="text-slate-400"><%= attr[:label] %></span>
+              <span class="text-white font-medium"><%= attr[:value] || 0 %>/10</span>
+            </div>
+            <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+              <div class="h-full <%= attr[:color] %> rounded-full transition-all" style="width: <%= ((attr[:value] || 0) * 10) %>%"></div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <% if @coffee.flavor_embedding %>
+        <div class="mt-6 pt-4 border-t border-slate-700">
+          <h3 class="text-sm font-medium text-slate-400 mb-2">Embedding Vector</h3>
+          <code class="text-xs text-slate-500 block break-all">
+            [<%= @coffee.flavor_embedding.to_a.map { |v| v.round(2) }.join(", ") %>]
+          </code>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<%= form_with(model: [:admin, coffee], class: "space-y-6") do |f| %>
+  <% if coffee.errors.any? %>
+    <div class="p-4 bg-red-500/20 border border-red-500/50 rounded-lg">
+      <h3 class="text-red-400 font-medium mb-2"><%= pluralize(coffee.errors.count, "error") %> prohibited saving:</h3>
+      <ul class="list-disc list-inside text-red-300 text-sm">
+        <% coffee.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :name, class: "block text-sm font-medium text-slate-300 mb-2" %>
+    <%= f.text_field :name, class: "w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent", placeholder: "Ethiopian Yirgacheffe" %>
+  </div>
+
+  <div>
+    <%= f.label :description, class: "block text-sm font-medium text-slate-300 mb-2" %>
+    <%= f.text_area :description, rows: 3, class: "w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent resize-none", placeholder: "Describe the coffee's flavor profile..." %>
+  </div>
+
+  <div>
+    <%= f.label :roast_level, class: "block text-sm font-medium text-slate-300 mb-2" %>
+    <%= f.select :roast_level, [["Light", "light"], ["Medium", "medium"], ["Dark", "dark"]], { include_blank: "Select roast level" }, class: "w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent" %>
+  </div>
+
+  <div class="grid grid-cols-2 gap-4">
+    <div>
+      <%= f.label :acidity, class: "block text-sm font-medium text-slate-300 mb-2" %>
+      <%= f.number_field :acidity, in: 0..10, class: "w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent", placeholder: "0-10" %>
+    </div>
+    <div>
+      <%= f.label :body, class: "block text-sm font-medium text-slate-300 mb-2" %>
+      <%= f.number_field :body, in: 0..10, class: "w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent", placeholder: "0-10" %>
+    </div>
+    <div>
+      <%= f.label :sweetness, class: "block text-sm font-medium text-slate-300 mb-2" %>
+      <%= f.number_field :sweetness, in: 0..10, class: "w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent", placeholder: "0-10" %>
+    </div>
+    <div>
+      <%= f.label :bitterness, class: "block text-sm font-medium text-slate-300 mb-2" %>
+      <%= f.number_field :bitterness, in: 0..10, class: "w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent", placeholder: "0-10" %>
+    </div>
+  </div>
+
+  <div class="flex gap-3">
+    <%= f.submit class: "px-6 py-3 bg-amber-600 hover:bg-amber-500 text-white font-medium rounded-lg transition cursor-pointer" %>
+    <%= link_to "Cancel", admin_coffees_path, class: "px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition" %>
+  </div>
+<% end %>
