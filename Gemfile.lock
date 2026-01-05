@@ -154,7 +154,8 @@ GEM
     marcel (1.1.0)
     matrix (0.4.3)
     mini_mime (1.1.5)
-    minitest (5.27.0)
+    minitest (6.0.1)
+      prism (~> 1.5)
     msgpack (1.8.0)
     neighbor (0.6.0)
       activerecord (>= 7.1)
@@ -382,7 +383,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
-  minitest (< 6)
+  minitest (< 7)
   neighbor
   pg (~> 1.1)
   propshaft
