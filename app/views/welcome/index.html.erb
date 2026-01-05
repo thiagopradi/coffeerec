@@ -1,0 +1,69 @@
+<%# Welcome/Landing Page - Email Capture %>
+<div class="min-h-screen bg-gradient-to-br from-stone-900 via-amber-950 to-stone-900 flex items-center justify-center px-4">
+  <div class="max-w-md w-full">
+    <%# Hero Section %>
+    <div class="text-center mb-10">
+      <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-amber-600 to-amber-800 rounded-full mb-6 shadow-lg shadow-amber-900/50">
+        <svg class="w-10 h-10 text-amber-100" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M4 4a2 2 0 012-2h8a2 2 0 012 2v2h2a2 2 0 012 2v4a4 4 0 01-4 4h-1.5a4.5 4.5 0 01-4.5 4.5A4.5 4.5 0 015.5 16H4a4 4 0 01-4-4V8a2 2 0 012-2h2V4zm10 6v4a2 2 0 002-2v-2h-2z"/>
+        </svg>
+      </div>
+
+      <h1 class="text-4xl font-bold text-amber-50 mb-3">
+        Coffee Sommelier
+      </h1>
+      <p class="text-lg text-amber-200/80">
+        Discover your perfect coffee match through our sensory quiz
+      </p>
+    </div>
+
+    <%# Email Form Card %>
+    <div class="bg-stone-800/50 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-amber-800/20">
+      <h2 class="text-xl font-semibold text-amber-100 mb-6 text-center">
+        Start Your Coffee Journey
+      </h2>
+
+      <%= form_with model: @user, url: start_path, class: "space-y-6" do |form| %>
+        <div>
+          <label for="user_email" class="block text-sm font-medium text-amber-200 mb-2">
+            Your Email
+          </label>
+          <%= form.email_field :email,
+              placeholder: "coffee@lover.com",
+              autofocus: true,
+              required: true,
+              class: "w-full px-4 py-3 bg-stone-900/80 border border-amber-700/30 rounded-xl text-amber-50 placeholder-amber-700/50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all" %>
+
+          <% if @user.errors[:email].any? %>
+            <p class="mt-2 text-sm text-red-400"><%= @user.errors[:email].first %></p>
+          <% end %>
+        </div>
+
+        <div>
+          <%= form.submit "Begin the Quiz →",
+              class: "w-full py-4 px-6 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-semibold rounded-xl shadow-lg shadow-amber-900/30 transition-all duration-300 transform hover:scale-[1.02] cursor-pointer" %>
+        </div>
+      <% end %>
+
+      <p class="text-center text-amber-600/60 text-sm mt-6">
+        We'll use this to save your taste profile
+      </p>
+    </div>
+
+    <%# Features Preview %>
+    <div class="mt-10 grid grid-cols-3 gap-4 text-center">
+      <div class="p-4">
+        <div class="text-2xl mb-2">🍫</div>
+        <p class="text-sm text-amber-300/70">Taste Mapping</p>
+      </div>
+      <div class="p-4">
+        <div class="text-2xl mb-2">☕</div>
+        <p class="text-sm text-amber-300/70">Equipment Match</p>
+      </div>
+      <div class="p-4">
+        <div class="text-2xl mb-2">✨</div>
+        <p class="text-sm text-amber-300/70">AI Powered</p>
+      </div>
+    </div>
+  </div>
+</div>

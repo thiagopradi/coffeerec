@@ -1,0 +1,29 @@
+espresso_user:
+  user: espresso_user
+  chocolate_preference: dark_70
+  fruit_preference: dried
+  drink_preference: beer_stout
+  texture_preference: syrupy
+  adventure_level: safe
+  brewing_method: espresso
+  has_grinder: true
+
+v60_user:
+  user: one
+  chocolate_preference: milk
+  fruit_preference: citrus
+  drink_preference: wine_light
+  texture_preference: tea_like
+  adventure_level: moderate
+  brewing_method: v60
+  has_grinder: true
+
+wild_user:
+  user: two
+  chocolate_preference: dark_85
+  fruit_preference: berries
+  drink_preference: wine_bold
+  texture_preference: creamy
+  adventure_level: wild
+  brewing_method: french_press
+  has_grinder: false

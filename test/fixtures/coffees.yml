@@ -1,0 +1,59 @@
+cerrado_classic:
+  name: Cerrado Mineiro Classic
+  description: A traditional Brazilian coffee with chocolate notes, low acidity, and full body. Perfect for espresso lovers.
+  roast_level: medium
+  acidity: 3
+  body: 8
+  sweetness: 7
+  bitterness: 4
+  flavor_embedding: "[0.3, 0.8, 0.7, 0.4, 0.39, 0.6, 0.62, 0.28]"
+
+sul_de_minas:
+  name: Sul de Minas Balanced
+  description: A balanced coffee with yellow fruit notes, medium acidity, and creamy body. Versatile for any brewing method.
+  roast_level: medium
+  acidity: 5
+  body: 6
+  sweetness: 6
+  bitterness: 4
+  flavor_embedding: "[0.5, 0.6, 0.6, 0.4, 0.53, 0.5, 0.48, 0.48]"
+
+mantiqueira_fruity:
+  name: Mantiqueira Fruity
+  description: A vibrant coffee with red berry and citrus notes. Light roast to preserve the delicate flavors.
+  roast_level: light
+  acidity: 8
+  body: 5
+  sweetness: 6
+  bitterness: 3
+  flavor_embedding: "[0.8, 0.5, 0.6, 0.3, 0.74, 0.4, 0.42, 0.74]"
+
+caparao_fermented:
+  name: Caparaó Fermented
+  description: An experimental natural process coffee with wine-like notes and complex fermented flavors.
+  roast_level: light
+  acidity: 7
+  body: 7
+  sweetness: 8
+  bitterness: 2
+  flavor_embedding: "[0.7, 0.7, 0.8, 0.2, 0.73, 0.45, 0.54, 0.62]"
+
+light_roast_ethiopia:
+  name: Ethiopian Yirgacheffe
+  description: A light roast Ethiopian with floral and citrus notes. Best for pour-over methods.
+  roast_level: light
+  acidity: 9
+  body: 4
+  sweetness: 7
+  bitterness: 2
+  flavor_embedding: "[0.9, 0.4, 0.7, 0.2, 0.84, 0.3, 0.36, 0.84]"
+
+dark_roast_espresso:
+  name: Italian Espresso Blend
+  description: A dark roast blend optimized for espresso with chocolate and caramel notes.
+  roast_level: dark
+  acidity: 2
+  body: 9
+  sweetness: 5
+  bitterness: 7
+  flavor_embedding: "[0.2, 0.9, 0.5, 0.7, 0.29, 0.8, 0.74, 0.18]"

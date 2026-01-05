@@ -1,0 +1,266 @@
+<%# Taste Profile Quiz - Multi-step sensory questionnaire %>
+<div class="min-h-screen bg-gradient-to-br from-stone-900 via-amber-950 to-stone-900 py-8 px-4"
+     data-controller="quiz">
+  <div class="max-w-2xl mx-auto">
+    <%# Header %>
+    <div class="text-center mb-8">
+      <a href="<%= root_path %>" class="inline-flex items-center text-amber-400 hover:text-amber-300 transition-colors mb-4">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        Back
+      </a>
+      <h1 class="text-3xl font-bold text-amber-50">Discover Your Taste</h1>
+      <p class="text-amber-200/70 mt-2">Answer 7 quick questions about your preferences</p>
+    </div>
+
+    <%# Progress Bar %>
+    <div class="mb-8">
+      <div class="h-2 bg-stone-700 rounded-full overflow-hidden">
+        <div class="h-full bg-gradient-to-r from-amber-500 to-amber-600 transition-all duration-500 ease-out"
+             data-quiz-target="progressBar"
+             style="width: 14%"></div>
+      </div>
+      <p class="text-center text-amber-400/60 text-sm mt-2">
+        Step <span data-quiz-target="stepNumber">1</span> of 7
+      </p>
+    </div>
+
+    <%# Quiz Form %>
+    <%= form_with model: @taste_profile, url: taste_profile_path, data: { quiz_target: "form" } do |form| %>
+
+      <%# Step 1: Chocolate Preference %>
+      <div class="quiz-step" data-quiz-target="step" data-step="1">
+        <h2 class="text-2xl font-semibold text-amber-100 text-center mb-2">Which chocolate do you prefer?</h2>
+        <p class="text-amber-400/60 text-center mb-8">This tells us about your sweetness and bitterness preferences</p>
+
+        <%= form.hidden_field :chocolate_preference, data: { quiz_target: "chocolateInput" } %>
+
+        <div class="grid grid-cols-2 gap-4">
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOption" data-value="white" data-input="chocolateInput">
+            <span class="text-4xl mb-3">🍫</span>
+            <span class="font-medium text-amber-100">White Chocolate</span>
+            <span class="text-sm text-amber-400/60">Creamy & Sweet</span>
+          </button>
+
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOption" data-value="milk" data-input="chocolateInput">
+            <span class="text-4xl mb-3">🍫</span>
+            <span class="font-medium text-amber-100">Milk Chocolate</span>
+            <span class="text-sm text-amber-400/60">Balanced & Smooth</span>
+          </button>
+
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOption" data-value="dark_70" data-input="chocolateInput">
+            <span class="text-4xl mb-3">🍫</span>
+            <span class="font-medium text-amber-100">Dark 70%</span>
+            <span class="text-sm text-amber-400/60">Rich & Bold</span>
+          </button>
+
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOption" data-value="dark_85" data-input="chocolateInput">
+            <span class="text-4xl mb-3">🍫</span>
+            <span class="font-medium text-amber-100">Dark 85%</span>
+            <span class="text-sm text-amber-400/60">Intense & Bitter</span>
+          </button>
+        </div>
+      </div>
+
+      <%# Step 2: Fruit Preference %>
+      <div class="quiz-step hidden" data-quiz-target="step" data-step="2">
+        <h2 class="text-2xl font-semibold text-amber-100 text-center mb-2">Which fruits do you enjoy most?</h2>
+        <p class="text-amber-400/60 text-center mb-8">This tells us about your acidity preferences</p>
+
+        <%= form.hidden_field :fruit_preference, data: { quiz_target: "fruitInput" } %>
+
+        <div class="grid grid-cols-2 gap-4">
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOption" data-value="citrus" data-input="fruitInput">
+            <span class="text-4xl mb-3">🍋</span>
+            <span class="font-medium text-amber-100">Citrus</span>
+            <span class="text-sm text-amber-400/60">Lemon, Orange, Lime</span>
+          </button>
+
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOption" data-value="berries" data-input="fruitInput">
+            <span class="text-4xl mb-3">🍓</span>
+            <span class="font-medium text-amber-100">Red Berries</span>
+            <span class="text-sm text-amber-400/60">Strawberry, Raspberry</span>
+          </button>
+
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOption" data-value="yellow" data-input="fruitInput">
+            <span class="text-4xl mb-3">🍑</span>
+            <span class="font-medium text-amber-100">Stone Fruits</span>
+            <span class="text-sm text-amber-400/60">Peach, Apricot</span>
+          </button>
+
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOption" data-value="dried" data-input="fruitInput">
+            <span class="text-4xl mb-3">🍇</span>
+            <span class="font-medium text-amber-100">Dried Fruits</span>
+            <span class="text-sm text-amber-400/60">Raisins, Dates</span>
+          </button>
+        </div>
+      </div>
+
+      <%# Step 3: Drink Preference %>
+      <div class="quiz-step hidden" data-quiz-target="step" data-step="3">
+        <h2 class="text-2xl font-semibold text-amber-100 text-center mb-2">What's your drink of choice?</h2>
+        <p class="text-amber-400/60 text-center mb-8">This tells us about your flavor complexity preferences</p>
+
+        <%= form.hidden_field :drink_preference, data: { quiz_target: "drinkInput" } %>
+
+        <div class="grid grid-cols-2 gap-4">
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOption" data-value="wine_bold" data-input="drinkInput">
+            <span class="text-4xl mb-3">🍷</span>
+            <span class="font-medium text-amber-100">Bold Red Wine</span>
+            <span class="text-sm text-amber-400/60">Full-bodied, Complex</span>
+          </button>
+
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOption" data-value="wine_light" data-input="drinkInput">
+            <span class="text-4xl mb-3">🥂</span>
+            <span class="font-medium text-amber-100">Light White Wine</span>
+            <span class="text-sm text-amber-400/60">Delicate, Floral</span>
+          </button>
+
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOption" data-value="beer_ipa" data-input="drinkInput">
+            <span class="text-4xl mb-3">🍺</span>
+            <span class="font-medium text-amber-100">IPA Beer</span>
+            <span class="text-sm text-amber-400/60">Hoppy, Bitter</span>
+          </button>
+
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOption" data-value="beer_stout" data-input="drinkInput">
+            <span class="text-4xl mb-3">🍺</span>
+            <span class="font-medium text-amber-100">Stout Beer</span>
+            <span class="text-sm text-amber-400/60">Roasty, Chocolatey</span>
+          </button>
+        </div>
+      </div>
+
+      <%# Step 4: Texture Preference %>
+      <div class="quiz-step hidden" data-quiz-target="step" data-step="4">
+        <h2 class="text-2xl font-semibold text-amber-100 text-center mb-2">How do you like your coffee's body?</h2>
+        <p class="text-amber-400/60 text-center mb-8">This tells us about your mouthfeel preferences</p>
+
+        <%= form.hidden_field :texture_preference, data: { quiz_target: "textureInput" } %>
+
+        <div class="grid grid-cols-1 gap-4 max-w-md mx-auto">
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOption" data-value="tea_like" data-input="textureInput">
+            <span class="text-4xl mb-3">🍵</span>
+            <span class="font-medium text-amber-100">Tea-like</span>
+            <span class="text-sm text-amber-400/60">Light, Clean, Silky</span>
+          </button>
+
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOption" data-value="creamy" data-input="textureInput">
+            <span class="text-4xl mb-3">🥛</span>
+            <span class="font-medium text-amber-100">Creamy</span>
+            <span class="text-sm text-amber-400/60">Medium, Smooth, Velvety</span>
+          </button>
+
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOption" data-value="syrupy" data-input="textureInput">
+            <span class="text-4xl mb-3">🍯</span>
+            <span class="font-medium text-amber-100">Syrupy</span>
+            <span class="text-sm text-amber-400/60">Heavy, Rich, Thick</span>
+          </button>
+        </div>
+      </div>
+
+      <%# Step 5: Adventure Level %>
+      <div class="quiz-step hidden" data-quiz-target="step" data-step="5">
+        <h2 class="text-2xl font-semibold text-amber-100 text-center mb-2">How adventurous are you?</h2>
+        <p class="text-amber-400/60 text-center mb-8">This helps us calibrate our recommendations</p>
+
+        <%= form.hidden_field :adventure_level, data: { quiz_target: "adventureInput" } %>
+
+        <div class="grid grid-cols-1 gap-4 max-w-md mx-auto">
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOption" data-value="safe" data-input="adventureInput">
+            <span class="text-4xl mb-3">🏠</span>
+            <span class="font-medium text-amber-100">Stay Safe</span>
+            <span class="text-sm text-amber-400/60">I prefer classics I know I'll love</span>
+          </button>
+
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOption" data-value="moderate" data-input="adventureInput">
+            <span class="text-4xl mb-3">🌿</span>
+            <span class="font-medium text-amber-100">Moderate</span>
+            <span class="text-sm text-amber-400/60">Mix of familiar and new</span>
+          </button>
+
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOption" data-value="wild" data-input="adventureInput">
+            <span class="text-4xl mb-3">🚀</span>
+            <span class="font-medium text-amber-100">Go Wild</span>
+            <span class="text-sm text-amber-400/60">Show me something unique!</span>
+          </button>
+        </div>
+      </div>
+
+      <%# Step 6: Brewing Method %>
+      <div class="quiz-step hidden" data-quiz-target="step" data-step="6">
+        <h2 class="text-2xl font-semibold text-amber-100 text-center mb-2">How do you make your coffee?</h2>
+        <p class="text-amber-400/60 text-center mb-8">We'll tailor recommendations to your equipment</p>
+
+        <%= form.hidden_field :brewing_method, data: { quiz_target: "brewingInput" } %>
+
+        <div class="grid grid-cols-2 gap-4">
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOption" data-value="espresso" data-input="brewingInput">
+            <span class="text-4xl mb-3">☕</span>
+            <span class="font-medium text-amber-100">Espresso Machine</span>
+            <span class="text-sm text-amber-400/60">High pressure extraction</span>
+          </button>
+
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOption" data-value="v60" data-input="brewingInput">
+            <span class="text-4xl mb-3">🫖</span>
+            <span class="font-medium text-amber-100">V60 / Pour Over</span>
+            <span class="text-sm text-amber-400/60">Clean, bright extraction</span>
+          </button>
+
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOption" data-value="french_press" data-input="brewingInput">
+            <span class="text-4xl mb-3">🍶</span>
+            <span class="font-medium text-amber-100">French Press</span>
+            <span class="text-sm text-amber-400/60">Full immersion, rich body</span>
+          </button>
+
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOption" data-value="moka" data-input="brewingInput">
+            <span class="text-4xl mb-3">☕</span>
+            <span class="font-medium text-amber-100">Moka Pot</span>
+            <span class="text-sm text-amber-400/60">Stovetop espresso</span>
+          </button>
+
+          <button type="button" class="quiz-card col-span-2 max-w-xs mx-auto" data-action="click->quiz#selectOption" data-value="capsule" data-input="brewingInput">
+            <span class="text-4xl mb-3">💊</span>
+            <span class="font-medium text-amber-100">Capsule Machine</span>
+            <span class="text-sm text-amber-400/60">Convenient single-serve</span>
+          </button>
+        </div>
+      </div>
+
+      <%# Step 7: Grinder %>
+      <div class="quiz-step hidden" data-quiz-target="step" data-step="7">
+        <h2 class="text-2xl font-semibold text-amber-100 text-center mb-2">Do you have a coffee grinder?</h2>
+        <p class="text-amber-400/60 text-center mb-8">Fresh ground coffee makes a big difference!</p>
+
+        <%= form.hidden_field :has_grinder, data: { quiz_target: "grinderInput" }, value: "" %>
+
+        <div class="grid grid-cols-2 gap-4 max-w-md mx-auto">
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOptionAndSubmit" data-value="true" data-input="grinderInput">
+            <span class="text-4xl mb-3">✅</span>
+            <span class="font-medium text-amber-100">Yes!</span>
+            <span class="text-sm text-amber-400/60">I grind my own beans</span>
+          </button>
+
+          <button type="button" class="quiz-card" data-action="click->quiz#selectOptionAndSubmit" data-value="false" data-input="grinderInput">
+            <span class="text-4xl mb-3">❌</span>
+            <span class="font-medium text-amber-100">Not yet</span>
+            <span class="text-sm text-amber-400/60">I buy pre-ground</span>
+          </button>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+</div>
+
+<style>
+  .quiz-card {
+    @apply flex flex-col items-center justify-center p-6 bg-stone-800/50 border-2 border-amber-800/30 rounded-xl cursor-pointer transition-all duration-300;
+  }
+  .quiz-card:hover {
+    @apply border-amber-500 bg-stone-700/50 transform scale-[1.02];
+  }
+  .quiz-card.selected {
+    @apply border-amber-400 bg-amber-900/30 ring-2 ring-amber-500/50;
+  }
+</style>

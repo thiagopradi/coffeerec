@@ -1,0 +1,149 @@
+<%# Recommendations Results Page %>
+<div class="min-h-screen bg-gradient-to-br from-stone-900 via-amber-950 to-stone-900 py-12 px-4">
+  <div class="max-w-4xl mx-auto">
+    <%# Header %>
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full mb-6 shadow-lg">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        </svg>
+      </div>
+      <h1 class="text-4xl font-bold text-amber-50 mb-3">Your Perfect Matches</h1>
+      <p class="text-lg text-amber-200/70">
+        Based on your taste profile, we found <%= @recommendations.length %> coffees you'll love
+      </p>
+    </div>
+
+    <%# Recommendations Grid %>
+    <div class="space-y-6">
+      <% @recommendations.each_with_index do |rec, index| %>
+        <% coffee = rec[:coffee] %>
+        <% score = rec[:score] %>
+        <% match_percentage = (score * 100).round %>
+
+        <div class="bg-stone-800/60 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-amber-800/20 shadow-xl
+                    <%= 'ring-2 ring-amber-500/50' if index == 0 %>">
+          <div class="flex flex-col md:flex-row md:items-start gap-6">
+            <%# Rank Badge %>
+            <div class="flex-shrink-0">
+              <div class="w-14 h-14 rounded-xl flex items-center justify-center font-bold text-xl
+                          <%= index == 0 ? 'bg-gradient-to-br from-amber-500 to-amber-600 text-white' : 'bg-stone-700 text-amber-400' %>">
+                #<%= index + 1 %>
+              </div>
+            </div>
+
+            <%# Coffee Info %>
+            <div class="flex-grow">
+              <div class="flex flex-wrap items-center gap-3 mb-3">
+                <h2 class="text-2xl font-bold text-amber-50"><%= coffee.name %></h2>
+                <span class="px-3 py-1 rounded-full text-sm font-medium
+                            <%= case coffee.roast_level
+                                when 'light' then 'bg-amber-200 text-amber-900'
+                                when 'medium' then 'bg-amber-500 text-white'
+                                when 'dark' then 'bg-stone-600 text-amber-100'
+                                end %>">
+                  <%= coffee.roast_level&.titleize %> Roast
+                </span>
+              </div>
+
+              <p class="text-amber-200/80 mb-4"><%= coffee.description %></p>
+
+              <%# Flavor Profile Bars %>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                <div>
+                  <div class="flex justify-between text-sm text-amber-400/60 mb-1">
+                    <span>Acidity</span>
+                    <span><%= coffee.acidity %>/10</span>
+                  </div>
+                  <div class="h-2 bg-stone-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-yellow-400 to-amber-500" style="width: <%= coffee.acidity.to_i * 10 %>%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-sm text-amber-400/60 mb-1">
+                    <span>Body</span>
+                    <span><%= coffee.body %>/10</span>
+                  </div>
+                  <div class="h-2 bg-stone-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-amber-600 to-orange-600" style="width: <%= coffee.body.to_i * 10 %>%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-sm text-amber-400/60 mb-1">
+                    <span>Sweetness</span>
+                    <span><%= coffee.sweetness %>/10</span>
+                  </div>
+                  <div class="h-2 bg-stone-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-pink-400 to-rose-500" style="width: <%= coffee.sweetness.to_i * 10 %>%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-sm text-amber-400/60 mb-1">
+                    <span>Bitterness</span>
+                    <span><%= coffee.bitterness %>/10</span>
+                  </div>
+                  <div class="h-2 bg-stone-700 rounded-full overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-stone-500 to-stone-600" style="width: <%= coffee.bitterness.to_i * 10 %>%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <%# Match Score %>
+            <div class="flex-shrink-0 text-center">
+              <div class="relative w-20 h-20">
+                <svg class="w-20 h-20 transform -rotate-90" viewBox="0 0 36 36">
+                  <circle cx="18" cy="18" r="16" fill="none" stroke="currentColor" stroke-width="2" class="text-stone-700"/>
+                  <circle cx="18" cy="18" r="16" fill="none" stroke="currentColor" stroke-width="2"
+                          class="<%= index == 0 ? 'text-amber-500' : 'text-amber-600' %>"
+                          stroke-dasharray="<%= [match_percentage, 100].min %>, 100"
+                          stroke-linecap="round"/>
+                </svg>
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <span class="text-lg font-bold text-amber-100"><%= match_percentage %>%</span>
+                </div>
+              </div>
+              <p class="text-sm text-amber-400/60 mt-2">Match</p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <%# Profile Summary %>
+    <div class="mt-12 bg-stone-800/40 rounded-xl p-6 border border-amber-800/20">
+      <h3 class="text-lg font-semibold text-amber-100 mb-4">Your Taste Profile</h3>
+      <div class="flex flex-wrap gap-2">
+        <span class="px-3 py-1 bg-amber-900/50 text-amber-300 rounded-full text-sm">
+          🍫 <%= current_user.taste_profile.chocolate_preference.humanize %>
+        </span>
+        <span class="px-3 py-1 bg-amber-900/50 text-amber-300 rounded-full text-sm">
+          🍋 <%= current_user.taste_profile.fruit_preference.humanize %>
+        </span>
+        <span class="px-3 py-1 bg-amber-900/50 text-amber-300 rounded-full text-sm">
+          🍷 <%= current_user.taste_profile.drink_preference.humanize %>
+        </span>
+        <span class="px-3 py-1 bg-amber-900/50 text-amber-300 rounded-full text-sm">
+          ☕ <%= current_user.taste_profile.brewing_method.humanize %>
+        </span>
+        <span class="px-3 py-1 bg-amber-900/50 text-amber-300 rounded-full text-sm">
+          <%= current_user.taste_profile.adventure_level == 'wild' ? '🚀' : (current_user.taste_profile.adventure_level == 'safe' ? '🏠' : '🌿') %>
+          <%= current_user.taste_profile.adventure_level.humanize %>
+        </span>
+      </div>
+    </div>
+
+    <%# Actions %>
+    <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+      <%= link_to new_taste_profile_path, class: "px-6 py-3 bg-stone-700 hover:bg-stone-600 text-amber-100 font-medium rounded-xl text-center transition-colors" do %>
+        <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+        </svg>
+        Retake Quiz
+      <% end %>
+    </div>
+  </div>
+</div>
